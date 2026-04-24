@@ -19,6 +19,7 @@ public class AuctionCreatedConsumer : IConsumer<AuctionCreated>
   {
     Console.WriteLine($"Received AuctionCreated event for Id: {context.Message.Id}");
 
+    // throw new NullReferenceException("Test fault"); // 👈 temporary
     var item = _mapper.Map<Item>(context.Message);
 
     await item.SaveAsync();
