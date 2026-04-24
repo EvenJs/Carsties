@@ -42,4 +42,11 @@ docker-compose.db.yml
 secrets.json
 
 
+# IdentityService
+src/IdentityService/obj/
+src/IdentityService/bin/
+src/IdentityService/*.db
+src/IdentityService/*.db-shm
+src/IdentityService/*.db-wal
+
 .claude/
