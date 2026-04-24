@@ -28,7 +28,7 @@ public class AuctionSvcHttpClient
     {
       url += "?date=" + lastUpdated;
     }
-    Console.WriteLine($"Fetching from: {url}");
+
     return await _httpClient.GetFromJsonAsync<List<Item>>(url);
   }
 }
