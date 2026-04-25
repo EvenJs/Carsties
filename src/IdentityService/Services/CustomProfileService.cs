@@ -24,7 +24,7 @@ public class CustomProfileService : IProfileService
 
     var claims = new List<Claim>
     {
-      new Claim(ClaimTypes.Name, user.UserName),
+      new Claim("username", user.UserName),
 
     };
 
