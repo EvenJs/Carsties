@@ -17,16 +17,15 @@ public class AuctionSvcHttpClient
 
   public async Task<List<Item>> GetItemFromSearchDb()
   {
-    var lastUpdated = await DB.Find<Item, string>()
-      .Sort(x => x.Descending(x => x.UpdatedAt))
-      .Project(x => x.UpdatedAt.ToString("o"))
-      .ExecuteFirstAsync();
+    var item = await DB.Find<Item>()
+       .Sort(x => x.Descending(x => x.UpdatedAt))
+       .ExecuteFirstAsync();
 
     var url = _config["AuctionServiceUrl"] + "/api/auctions";
 
-    if (!string.IsNullOrEmpty(lastUpdated))
+    if (item != null)
     {
-      url += "?date=" + lastUpdated;
+      url += "?date=" + item.UpdatedAt.ToString("o");
     }
 
     return await _httpClient.GetFromJsonAsync<List<Item>>(url);

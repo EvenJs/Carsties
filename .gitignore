@@ -51,3 +51,4 @@ src/IdentityService/*.db-wal
 src/IdentityService/keys/
 
 .claude/
+.vscode/
