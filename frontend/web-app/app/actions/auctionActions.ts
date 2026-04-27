@@ -1,9 +1,9 @@
 "use server";
 
-import { Auction, PageResult } from "@/types";
+import { Auction, PagedResult } from "@/types";
 
-export async function getData(pageNumber: number, pageSize: number): Promise<PageResult<Auction>> {
-  const res = await fetch(`http://localhost:6001/search?pagesize=${pageSize}&pagenumber=${pageNumber}`);
+export async function getData(query: string): Promise<PagedResult<Auction>> {
+  const res = await fetch(`http://localhost:6001/search${query}`);
 
   if (!res.ok) throw new Error("Failed to fetch data");
 
