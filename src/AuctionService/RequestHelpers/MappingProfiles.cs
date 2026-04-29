@@ -17,5 +17,6 @@ public class MappingProfiles : Profile
     CreateMap<CreateAuctionDto, Item>();
     CreateMap<AuctionDto, AuctionCreated>();
     CreateMap<Item, AuctionCreated>();
+    CreateMap<Auction, AuctionUpdated>().ReverseMap();
   }
 }
