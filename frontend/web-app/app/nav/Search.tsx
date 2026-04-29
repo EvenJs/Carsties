@@ -4,10 +4,9 @@ import { useParamsStore } from "@/hooks/useParamsStore";
 import { ChangeEvent, useState } from "react";
 import { FaSearch } from "react-icons/fa";
 
-export default function Search() {
+export function SearchInput() {
   const setParams = useParamsStore((state) => state.setParams);
-  const searchTerm = useParamsStore((state) => state.searchTerm);
-  const [value, setValue] = useState(searchTerm ?? "");
+  const [value, setValue] = useState("");
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     setValue(e.target.value);
@@ -37,4 +36,9 @@ export default function Search() {
       </button>
     </div>
   );
+}
+
+export default function Search() {
+  const searchTerm = useParamsStore((state) => state.searchTerm);
+  return <SearchInput key={searchTerm} />;
 }
