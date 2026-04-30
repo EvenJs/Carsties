@@ -8,7 +8,7 @@ export type Auction = {
   id: string;
   reservePrice?: number
   seller: string
-  winner?: any
+  winner?: string
   soldAmount?: number
   currentHighestBid?: number
   createdAt: string
