@@ -6,6 +6,8 @@ import { FieldValues, useForm } from "react-hook-form";
 import Input from "../components/Input";
 import { useEffect } from "react";
 import DateInput from "../components/DateInput";
+import { createAuction } from "../actions/auctionActions";
+import toast from "react-hot-toast";
 
 export default function AuctionForm() {
   const router = useRouter();
@@ -20,8 +22,17 @@ export default function AuctionForm() {
     setFocus("make");
   }, [setFocus]);
 
-  function onSubmit(data: FieldValues) {
-    console.log(data);
+  async function onSubmit(data: FieldValues) {
+    try {
+      const res = await createAuction(data);
+      if (res.error) {
+        throw res.error;
+      }
+      router.push(`/auctions/details/${res.id}`);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      toast.error(error.status + " " + error.message);
+    }
   }
   return (
     <form className="flex flex-col mt-3" onSubmit={handleSubmit(onSubmit)}>
@@ -42,6 +53,12 @@ export default function AuctionForm() {
         label="Color"
         control={control}
         rules={{ required: "Color is required" }}
+      />
+      <Input
+        name="imageUrl"
+        label="Image URL"
+        control={control}
+        rules={{ required: "Image URL is required" }}
       />
       <div className="grid grid-cols-2 gap-3">
         <Input
