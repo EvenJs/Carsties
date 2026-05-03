@@ -7,8 +7,9 @@ namespace BiddingService.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class BidController : ControllerBase
+public class BidsController : ControllerBase
 {
+  [HttpPost]
   public async Task<ActionResult<Bid>> PlaceBid(string auctionId, int amount)
   {
     var auction = await DB.Find<Auction>().OneAsync(auctionId);
@@ -31,7 +32,7 @@ public class BidController : ControllerBase
       Bidder = User.Identity?.Name ?? "Unknown",
     };
 
-    if (auction.EndTime < DateTime.UtcNow)
+    if (auction.AuctionEnd < DateTime.UtcNow)
     {
       return BadRequest("Auction has already ended");
     }
@@ -57,5 +58,16 @@ public class BidController : ControllerBase
     await DB.SaveAsync(bid);
 
     return Ok(bid);
+  }
+
+  [HttpGet("{auctionId}")]
+  public async Task<ActionResult<List<Bid>>> GetBidsForAuction(string auctionId)
+  {
+    var bids = await DB.Find<Bid>()
+      .Match(a => a.AuctionId == auctionId)
+      .Sort(b => b.Descending("BidDate"))
+      .ExecuteAsync();
+
+    return bids;
   }
 }
