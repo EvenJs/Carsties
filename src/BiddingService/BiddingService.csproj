@@ -17,6 +17,7 @@
     <Folder Include="Consumers/" />
     <Folder Include="DTOs/" />
     <Folder Include="RequestHelpers/" />
+    <Folder Include="Services/" />
   </ItemGroup>
 
   <ItemGroup>
