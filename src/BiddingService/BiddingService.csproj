@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
     <PackageReference Include="MassTransit.RabbitMQ" Version="8.5.9" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.26" />
     <PackageReference Include="MongoDB.Entities" Version="24.0.0" />
@@ -14,6 +15,8 @@
 
   <ItemGroup>
     <Folder Include="Consumers/" />
+    <Folder Include="DTOs/" />
+    <Folder Include="RequestHelpers/" />
   </ItemGroup>
 
   <ItemGroup>
