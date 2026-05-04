@@ -13,10 +13,16 @@
     <Folder Include="DTOs/" />
     <Folder Include="Entities/" />
     <Folder Include="RequestHelpers/" />
+    <Folder Include="Services/" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+    <PackageReference Include="Grpc.AspNetCore" Version="2.80.0" />
+    <PackageReference Include="Grpc.Tools" Version="2.80.0">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
     <PackageReference Include="MassTransit.EntityFrameworkCore" Version="8.5.9" />
     <PackageReference Include="MassTransit.RabbitMQ" Version="8.5.9" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.26" />
@@ -28,4 +34,7 @@
     <ProjectReference Include="..\Contracts\Contracts.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+  <Protobuf Include="Protos\auctions.proto" GrpcServices="Server" />
+  </ItemGroup>
 </Project>
