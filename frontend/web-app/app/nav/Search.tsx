@@ -26,7 +26,7 @@ export function SearchInput() {
         value={value}
         type="text"
         placeholder="Search for cars by make, model or color"
-        className="grow pl-5 bg-transparent focus:outline-none focus:ring-0 focus:border-transparent text-sm text-gray-600"
+        className="input-custom"
       />
       <button onClick={handleSearch}>
         <FaSearch
