@@ -10,3 +10,9 @@ button {
 .react-datepicker-wrapper {
   width: 100%;
 }
+
+@layer components {
+  .input-custom {
+    @apply grow pl-5 bg-transparent focus:outline-none focus:ring-0 focus:border-transparent text-sm text-gray-600;
+  }
+}

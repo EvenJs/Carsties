@@ -9,7 +9,7 @@ public class MappingProfiles : Profile
 {
   public MappingProfiles()
   {
-    CreateMap<Bid, BidDto>();
+    CreateMap<Bid, BidDto>().ForMember(d => d.Id, o => o.MapFrom(s => s.ID));
     CreateMap<Bid, BidPlaced>();
   }
 }
