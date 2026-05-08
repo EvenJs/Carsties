@@ -20,16 +20,24 @@ export default function BidList({ user, auction }: Props) {
   const [loading, setLoading] = useState(true);
   const bids = useBidStore((state) => state.bids);
   const setBids = useBidStore((state) => state.setBids);
+  const open = useBidStore((state) => state.open);
+  const setOpen = useBidStore((state) => state.setOpen);
+  const openForBids = new Date(auction.auctionEnd) > new Date();
 
   const highBid = bids.reduce(
-    (prev, current) => (prev > current.amount ? prev : current.amount),
+    (prev, current) =>
+      prev > current.amount
+        ? prev
+        : current.bidStatus.includes("Accepted")
+          ? current.amount
+          : prev,
     0,
   );
 
   useEffect(() => {
     getBidForAuction(auction.id)
-      .then((res: any) => {
-        if (res.error) {
+      .then((res: Bid[] | { error: { status: number; message: string } }) => {
+        if ("error" in res) {
           throw res.error;
         }
         setBids(res as Bid[]);
@@ -39,6 +47,10 @@ export default function BidList({ user, auction }: Props) {
       })
       .finally(() => setLoading(false));
   }, [auction.id, setBids]);
+
+  useEffect(() => {
+    setOpen(openForBids);
+  }, [openForBids, setOpen]);
 
   if (loading) return <span>Loading bids...</span>;
   return (
@@ -65,7 +77,11 @@ export default function BidList({ user, auction }: Props) {
         )}
       </div>
       <div className="px-2 pb-2 text-gray-500">
-        {!user ? (
+        {!open ? (
+          <div className="flex items-center justify-center p-2 text-lg font-semibold">
+            This auction has finished
+          </div>
+        ) : !user ? (
           <div className="px-2 pb-2 text-gray-900">
             Please login to make a bid
           </div>
