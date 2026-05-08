@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using BiddingService.Consumers;
 using BiddingService.Services;
 using MassTransit;
@@ -14,6 +15,10 @@ builder.Services.AddEndpointsApiExplorer();
 
 // Configure the HTTP request pipeline.
 
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+});
 builder.Services.AddMassTransit(x =>
 {
     x.AddConsumersFromNamespaceContaining<AuctionCreatedConsumer>();
